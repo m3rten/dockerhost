@@ -6,17 +6,21 @@ Vagrant.configure("2") do |config|
   #config.vm.provision "shell", inline:
   #"ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
 
+  config.vm.define "dockerhost"
+  config.vm.box = "ubuntu/trusty64"
+
+  # Create a forwarded port mapping which allows access to a specific port within the machine from a port on the host machine.
+  [8080, 3306].each do |p|
+    config.vm.network :forwarded_port, guest: p, host: p
+  end
+
+  #config.vm.network :private_network, ip: 192.168.50.100
+
   config.vm.provision "shell", inline: "sudo echo \"Europe/Berlin\" | sudo tee /etc/timezone"
   config.vm.provision "shell", inline: "sudo dpkg-reconfigure -f noninteractive tzdata"
   config.vm.provision "shell", inline: "sudo apt-get update -y"
   config.vm.provision "shell", inline: "sudo apt-get install -y build-essential curl git libssl-dev man"
   config.vm.provision "shell", inline: "sudo apt-get upgrade -y"
-
-  #config.vm.synced_folder "../src", "/var/www/" + $vhost, type: "rsync", rsync__exclude: ["./app/cache","./app/logs","./web"]
-
-  config.vm.define "dockerhost"
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
 
   # Virtualbox VM Settings
   config.vm.provider :virtualbox do |vb|
@@ -25,6 +29,7 @@ Vagrant.configure("2") do |config|
     vb.cpus = 2
   end
 
+  # installs Docker an pulls some images
   config.vm.provision "docker" do |docker|
     docker.pull_images "ubuntu:14.04"
   end
