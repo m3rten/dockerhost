@@ -1,0 +1,4 @@
+.idea
+virtualbox
+/vagrant.pem
+/vagrant.ppk

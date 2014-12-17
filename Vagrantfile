@@ -6,11 +6,11 @@ Vagrant.configure("2") do |config|
   #config.vm.provision "shell", inline:
   #"ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
 
- # config.vm.provision "shell", inline: "sudo echo \"Europe/Berlin\" | sudo tee /etc/timezone"
- # config.vm.provision "shell", inline: "sudo dpkg-reconfigure -f noninteractive tzdata"
- # config.vm.provision "shell", inline: "sudo apt-get update -y"
- # config.vm.provision "shell", inline: "sudo apt-get install -y build-essential curl git libssl-dev man"
- # config.vm.provision "shell", inline: "sudo apt-get upgrade -y"
+  config.vm.provision "shell", inline: "sudo echo \"Europe/Berlin\" | sudo tee /etc/timezone"
+  config.vm.provision "shell", inline: "sudo dpkg-reconfigure -f noninteractive tzdata"
+  config.vm.provision "shell", inline: "sudo apt-get update -y"
+  config.vm.provision "shell", inline: "sudo apt-get install -y build-essential curl git libssl-dev man"
+  config.vm.provision "shell", inline: "sudo apt-get upgrade -y"
 
   config.vm.define "dockerhost"
   config.vm.box = "ubuntu/trusty64"
