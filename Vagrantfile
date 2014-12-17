@@ -12,8 +12,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "sudo apt-get install -y build-essential curl git libssl-dev man"
   config.vm.provision "shell", inline: "sudo apt-get upgrade -y"
 
-  #config.vm.synced_folder "../src", "/var/www/" + $vhost, type: "rsync", rsync__exclude: ["./app/cache","./app/logs","./web"]
-
   config.vm.define "dockerhost"
   config.vm.box = "ubuntu/trusty64"
   config.vm.network "forwarded_port", guest: 8080, host: 8080
