@@ -9,3 +9,4 @@ virtualbox
 /nginx/vagrant/.profile
 /nginx/vagrant/.ssh/authorized_keys
 /nginx/vagrant/.viminfo
+.vagrant

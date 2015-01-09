@@ -10,11 +10,15 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
 
   # Create a forwarded port mapping which allows access to a specific port within the machine from a port on the host machine.
-  [8080, 3306].each do |p|
+  [8080].each do |p|
     config.vm.network :forwarded_port, guest: p, host: p
   end
 
+  config.vm.network :forwarded_port, guest: 3306, host: 3369 # mysql
+
   #config.vm.network :private_network, ip: 192.168.50.100
+
+  config.vm.synced_folder ".", "/vagrant"
 
   config.vm.provision "shell", inline: "sudo echo \"Europe/Berlin\" | sudo tee /etc/timezone"
   config.vm.provision "shell", inline: "sudo dpkg-reconfigure -f noninteractive tzdata"

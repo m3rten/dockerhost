@@ -6,5 +6,7 @@
 </head>
 <body>
 Hello NGINX
+
+<?php phpinfo(); ?>
 </body>
 </html>
