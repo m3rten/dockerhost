@@ -1,0 +1,4 @@
+folders:
+  - map: E:\Work\sandbox\quizcms
+    to: /home/vagrant/quizcms
+

@@ -13,12 +13,6 @@ COPY default.conf /etc/nginx/sites-available/default
 RUN apt-get -y install php5-fpm php5-mysql php5-cli php5-dev php5-gd php5-mcrypt php5-json php5-curl php5-xdebug php5-intl
 RUN sed -i s/\;cgi\.fix_pathinfo\s*\=\s*1/cgi.fix_pathinfo\=0/ /etc/php5/fpm/php.ini
 
-# copy script
-ADD index.php /var/www/index.php
-
-# add volumes for debug and file manipulation
-VOLUME ["/var/log/", "/usr/share/nginx/html/"]
-
 # expose ports
 EXPOSE 80
 

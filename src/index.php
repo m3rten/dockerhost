@@ -5,8 +5,7 @@
     <title></title>
 </head>
 <body>
-Hello NGINX
-
+Hello NGINX supi dupi
 <?php phpinfo(); ?>
 </body>
 </html>
