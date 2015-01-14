@@ -1,16 +1,26 @@
-# dockerhost
+# Dockerhost
 
-## vagrant with docker
+A single Vagrant environment to host multiple development environments in docker containers.
+Map your project folders to vagrant by editing config.yaml
+Example:
+
+    - map: /your/local/project
+      to: /home/vagrant/project
+
+## Startup vagrant with docker
 
     vagrant up && vagrant ssh
+    
+## Build an run docker images    
+    
     cd /vagrant/
+    docker build -t "data" data/
+    docker run -i -t --name data -v /home/vagrant/project:/var/www data /bin/bash
     
-    docker build -t "m3rten/data" data/
-    docker run -i -t --name data -v /homevagrant/quizcms:/var/www m3rten/data /bin/bash
-    
-    docker build -t "m3rten/nginx" nginx/
-    docker run -d -p 80:80 --name quizcms_nginx --volumes-from data m3rten/nginx
-    
+    docker build -t "nginx" nginx/
+    docker run -d -p 80:80 --name nginx --volumes-from data nginx
+ 
+## Cleanup    
     docker kill nginx && docker rm nginx
     
     
