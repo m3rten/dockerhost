@@ -14,9 +14,9 @@ Vagrant.configure("2") do |config|
   # Provisioning
   config.vm.provision "shell", inline: "sudo echo \"Europe/Berlin\" | sudo tee /etc/timezone"
   config.vm.provision "shell", inline: "sudo dpkg-reconfigure -f noninteractive tzdata"
-  config.vm.provision "shell", inline: "sudo apt-get update -y"
+  config.vm.provision "shell", inline: "sudo apt-get update -y && sudo apt-get upgrade -y"
   config.vm.provision "shell", inline: "sudo apt-get install -y build-essential curl git libssl-dev man"
-  config.vm.provision "shell", inline: "sudo apt-get upgrade -y"
+  config.vm.provision "shell", inline: "sudo apt-get install apache2-utils"
 
   # installs Docker an pulls some images
   config.vm.provision "docker" do |docker|
