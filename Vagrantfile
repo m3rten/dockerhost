@@ -16,7 +16,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "sudo dpkg-reconfigure -f noninteractive tzdata"
   config.vm.provision "shell", inline: "sudo apt-get update -y && sudo apt-get upgrade -y"
   config.vm.provision "shell", inline: "sudo apt-get install -y build-essential curl git libssl-dev man"
-  config.vm.provision "shell", inline: "sudo apt-get install apache2-utils"
+  config.vm.provision "shell", inline: "sudo apt-get install -y apache2-utils"
+
+  # Guest additions workaround
+  config.vbguest.iso_path = "http://download.virtualbox.org/virtualbox/4.3.20/VBoxGuestAdditions_4.3.20.iso"
 
   # installs Docker an pulls some images
   config.vm.provision "docker" do |docker|
