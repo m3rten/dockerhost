@@ -17,6 +17,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "sudo apt-get update -y && sudo apt-get upgrade -y"
   config.vm.provision "shell", inline: "sudo apt-get install -y build-essential curl git libssl-dev man"
   config.vm.provision "shell", inline: "sudo apt-get install -y apache2-utils"
+  config.vm.provision "shell", inline: "sudo apt-get install -y php5-cli php5-json php5-curl"
 
   # Guest additions workaround
   config.vbguest.iso_path = "http://download.virtualbox.org/virtualbox/4.3.20/VBoxGuestAdditions_4.3.20.iso"
