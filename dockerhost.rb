@@ -5,6 +5,9 @@ class Dockerhost
     config.vm.box = "ubuntu/trusty64"
     config.vm.hostname = "dockerhost"
 
+    config.vm.define "dockerhost" do |d|
+    end
+
     # Configure A Private Network IP
     config.vm.network :private_network, ip: "192.168.50.100"
 
