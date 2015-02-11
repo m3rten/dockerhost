@@ -23,26 +23,26 @@ fi
 if test $1 == "create"
 then
         ./build.sh
-        docker run --name m3rten_data -v /home/vagrant/gueltige-gutscheincodes.com/src:/var/www/gueltige-gutscheincodes.com m3rten/data
+        docker run --name m3rten_data -v /home/vagrant/notexpired/src:/var/www/notexpired m3rten/data
         docker run -d -p 3306:3306 --name m3rten_mysql --volumes-from m3rten_data m3rten/mysql
-        #docker run -i -t -p 80:80 --name gueltigegutscheincodes_nginx --link m3rten_mysql:mysql --volumes-from m3rten_data -v /home/vagrant/gueltige-gutscheincodes.com/conf/default.conf:/etc/nginx/conf.d/default.conf m3rten/nginx /bin/bash
-        docker run -d -p 80:80 --name gueltigegutscheincodes_nginx --link m3rten_mysql:mysql --volumes-from m3rten_data -v /home/vagrant/gueltige-gutscheincodes.com/conf/default.conf:/etc/nginx/conf.d/default.conf m3rten/nginx
+        #docker run -i -t -p 80:80 --name notexpired_nginx --link m3rten_mysql:mysql --volumes-from m3rten_data -v /home/vagrant/notexpired/conf/default.conf:/etc/nginx/conf.d/default.conf m3rten/nginx /bin/bash
+        docker run -d -p 80:80 --name notexpired_nginx --link m3rten_mysql:mysql --volumes-from m3rten_data -v /home/vagrant/notexpired/conf/default.conf:/etc/nginx/conf.d/default.conf m3rten/nginx
 fi
 
 if test $1 == "rebuild"
 then
         docker kill m3rten_mysql && docker rm m3rten_mysql
-        docker kill gueltigegutscheincodes_nginx && docker rm gueltigegutscheincodes_nginx
+        docker kill notexpired_nginx && docker rm notexpired_nginx
         ./build.sh
         docker start m3rten_data
         docker run -d -p 3306:3306 --name m3rten_mysql --volumes-from m3rten_data m3rten/mysql
-        docker run -i -t -p 80:80 --name gueltigegutscheincodes_nginx --link m3rten_mysql:mysql --volumes-from m3rten_data m3rten/nginx /bin/bash
+        docker run -d -p 80:80 --name notexpired_nginx --link m3rten_mysql:mysql --volumes-from m3rten_data -v /home/vagrant/notexpired/conf/default.conf:/etc/nginx/conf.d/default.conf m3rten/nginx
 fi
 
 if test $1 == "killall"
 then
         docker kill m3rten_data && docker rm m3rten_data
-        docker kill gueltigegutscheincodes_nginx && docker rm gueltigegutscheincodes_nginx
+        docker kill notexpired_nginx && docker rm notexpired_nginx
         docker kill m3rten_mysql && docker rm m3rten_mysql
 fi
 
