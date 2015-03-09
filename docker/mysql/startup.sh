@@ -7,7 +7,7 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
     /usr/bin/mysqld_safe &
     sleep 5s
 
-    echo "GRANT ALL ON *.* TO admin@'%' IDENTIFIED BY '2REqhyep' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql
+    echo "GRANT ALL ON *.* TO admin@'%' IDENTIFIED BY 'localpw' WITH GRANT OPTION; FLUSH PRIVILEGES;" | mysql
 
     killall mysqld
     sleep 3s
