@@ -5,6 +5,7 @@ MAINTAINER Sebastian Merten <sebastian@mertenonline.de>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN mkdir /var/log/nginx
+RUN mkdir /var/log/apache2
 RUN mkdir /var/log/mysql
 RUN mkdir /var/www
 
