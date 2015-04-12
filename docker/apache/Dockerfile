@@ -34,13 +34,13 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN a2dissite 000-default
 #RUN a2ensite internetstore.conf
 
-# Logging
-RUN mkdir -p /var/log/apache2
-RUN chmod 755 /var/log/apache2
+ADD ./startup.sh /root/startup.sh
+RUN chmod 744 /root/startup.sh
 
-# Expose port 80 to the host machine
 EXPOSE 80
 
-ENTRYPOINT ["/usr/sbin/apache2ctl"]
-CMD ["-D", "FOREGROUND"]
+CMD /root/startup.sh
+
+#ENTRYPOINT ["/usr/sbin/apache2ctl"]
+#CMD ["-D", "FOREGROUND"]
 #CMD ["/usr/sbin/apache2ctl -D FOREGROUND"]
