@@ -4,6 +4,16 @@ A single Vagrant environment to host multiple development environments in docker
 Map your project folders to vagrant by editing config.yaml
 Example:
 
+## prerequesites on Windows
+
+https://msysgit.github.io/
+tortoise git
+
+- cygwin, with rsync
+- vagrant
+- git
+
+
     - map: /your/local/project
       to: /home/vagrant/project
 
