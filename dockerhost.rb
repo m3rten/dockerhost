@@ -27,11 +27,12 @@ class Dockerhost
 
     # Register All Of The Configured Shared Folders
     #config.vm.synced_folder ".", "/vagrant", type: "smb"
-    #config.vm.synced_folder ".", "/vagrant"
+    config.vm.synced_folder ".", "/vagrant"
 
     settings["folders"].each do |folder|
       config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil
       #config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= "smb"
+      config.vm.synced_folder folder["map"], folder["to"], type: folder["type"], type: "rsync" , rsync__exclude: folder["excludes"]
     end
 
   end

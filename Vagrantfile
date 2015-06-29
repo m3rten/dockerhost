@@ -18,8 +18,11 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "sudo apt-get install -y build-essential curl git libssl-dev man wget htop"
   config.vm.provision "shell", inline: "sudo apt-get install -y apache2-utils"
   config.vm.provision "shell", inline: "sudo apt-get install -y php5-cli php5-json php5-curl"
+  #config.vm.provision "shell", inline: "sudo apt-get install -y samba"
+  #config.vm.provision "shell", inline: "cp /vagrant/smb.conf /etc/samba/smb.conf"
+  #config.vm.provision "shell", inline: "service smbd restart"
 
-  # Guest additions workaround
+# Guest additions workaround
   #config.vbguest.iso_path = "http://download.virtualbox.org/virtualbox/4.3.28/VBoxGuestAdditions_4.3.28.iso"
 
   # installs Docker an pulls some images
