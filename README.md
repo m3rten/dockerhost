@@ -9,13 +9,29 @@ Example:
 https://msysgit.github.io/
 tortoise git
 
-- cygwin, with rsync
+- cygwin, with rsync, wget, curl
 - vagrant
 - git
 
+## Service & Servers
+
+- Docker Registry
+- Jenkins 
+- Salt Master
+- Docker MySQL-Backup
+
+## config.yaml
 
     - map: /your/local/project
       to: /home/vagrant/project
+      
+## MySQL Backup & Restore      
+
+### Backup    
+    docker run -it --rm -v $(pwd):/var/backups --link m3rten_mysql:mysql --volumes-from m3rten_data m3rten/mysql /bin/bash -c "/root/backup.sh"
+
+### Restore
+    docker exec -i m3rten_mysql mysql -uadmin -plocalpw < backup.sql
 
 ## Startup vagrant with docker
 

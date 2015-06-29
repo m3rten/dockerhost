@@ -9,7 +9,9 @@ class Dockerhost
     end
 
     # Configure A Private Network IP
-    config.vm.network :private_network, ip: "192.168.50.100"
+    #config.vm.network :private_network, ip: "192.168.0.50"
+    config.vm.network :public_network, ip: "192.168.0.50"
+    #config.vm.network :private_network, type: "dhcp"
 
     # Virtualbox VM Settings
     config.vm.provider :virtualbox do |vb|

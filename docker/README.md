@@ -21,6 +21,7 @@
 ## mysql backup
     
     docker run -i -t --rm -v $(pwd):/backup  --volumes-from quizcms_backend_data --link=quizcms_backend_mysql:mysql quizcms/backend_mysql /bin/bash
+    docker run -it --rm -v $(pwd):/var/backups --link m3rten_mysql:mysql --volumes-from m3rten_data m3rten/mysql /bin/bash -c "/root/backup.sh"
     
 ## inspect data volume
     
