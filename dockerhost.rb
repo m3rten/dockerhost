@@ -32,7 +32,7 @@ class Dockerhost
     settings["folders"].each do |folder|
       config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil
       #config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= "smb"
-      config.vm.synced_folder folder["map"], folder["to"], type: folder["type"], type: "rsync" , rsync__exclude: folder["excludes"]
+      config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil , rsync__exclude: folder["excludes"]
     end
 
   end
