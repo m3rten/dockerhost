@@ -1,14 +1,13 @@
-FROM ubuntu:14.04
+FROM m3rten/base:latest
 MAINTAINER Sebastian Merten <sebastian@mertenonline.de>
 
-# set noninteractive mode to avoid 'unable to initialize frontend'-messages
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get upgrade -y
-
 # install wget + salt
-RUN apt-get install -y python-software-properties && apt-get install -y software-properties-common
+RUN apt-get update && \
+    apt-get install -y python-software-properties software-properties-common
 RUN add-apt-repository -y ppa:saltstack/salt && apt-get update
-RUN apt-get install -y wget && \
-    apt-get install -y salt-master && \
-    apt-get install -y salt-minion
+RUN apt-get update && \
+    apt-get install -y \
+    salt-master \
+    salt-minion \
+    salt-cloud
 #RUN wget -O - https://bootstrap.saltstack.com | sudo sh

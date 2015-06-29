@@ -1,10 +1,5 @@
-FROM ubuntu:14.04
+FROM m3rten/base:latest
 MAINTAINER Sebastian Merten <sebastian@mertenonline.de>
-
-# set noninteractive mode to avoid 'unable to initialize frontend'-messages
-ENV DEBIAN_FRONTEND noninteractive
-# update
-RUN apt-get update && apt-get -y upgrade
 
 # install nginx
 RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62

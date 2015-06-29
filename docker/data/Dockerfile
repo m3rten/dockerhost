@@ -1,8 +1,5 @@
-FROM ubuntu:14.04
+FROM m3rten/base:latest
 MAINTAINER Sebastian Merten <sebastian@mertenonline.de>
-
-# set noninteractive mode to avoid 'unable to initialize frontend'-messages
-ENV DEBIAN_FRONTEND noninteractive
 
 RUN mkdir /var/log/nginx
 RUN mkdir /var/log/apache2

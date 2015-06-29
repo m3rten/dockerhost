@@ -1,10 +1,9 @@
-FROM ubuntu:14.04
+FROM m3rten/base:latest
 MAINTAINER Sebastian Merten <sebastian@mertenonline.de>
 
 # Install base packages
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get -yq install \
-    curl \
+    apt-get -yq install \
     apache2 \
     libapache2-mod-php5 \
     php5-mysql \
@@ -14,7 +13,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN apt-get update && apt-get install -y wget imagemagick php5-imagick
+# some tools
+RUN apt-get update && apt-get install -y imagemagick php5-imagick mysql-client
 
 # Add IonCube Loaders
 RUN mkdir /tmp/ioncube_install

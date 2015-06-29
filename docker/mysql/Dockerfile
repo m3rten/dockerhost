@@ -1,9 +1,5 @@
-FROM ubuntu:14.04
+FROM m3rten/base:latest
 MAINTAINER Sebastian Merten <sebastian@mertenonline.de>
-
-# set noninteractive mode to avoid 'unable to initialize frontend'-messages
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get upgrade -y
 
 # install mysql
 RUN apt-get -y install mysql-client mysql-server
