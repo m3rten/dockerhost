@@ -1,0 +1,11 @@
+# Map your local project folders to a folder in /home/vagrant on the VM
+# rename this file to config.yaml
+folders:
+  # Map as Virtualbox shared folder - slow, sync in both directions
+  - map: C:\path\to\project
+    to: /home/vagrant/project
+  # Map folder using rsync - fast one way syncing to guest, use 'vagrant rsync-auto' to watch for changes
+  - map: C:\path\to\project2
+    to: /home/vagrant/project2
+    type: rsync
+    excludes: ["cache",".git"] # exclude folders from syncing, like cache folders or vcs folders

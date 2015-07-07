@@ -22,8 +22,11 @@ class Dockerhost
 
     # Configure Port Forwarding To The Box
     config.vm.network "forwarded_port", guest: 80, host: 80
+    config.vm.network "forwarded_port", guest: 8085, host: 8085
     config.vm.network "forwarded_port", guest: 443, host: 443
     config.vm.network "forwarded_port", guest: 3306, host: 33060
+    config.vm.network "forwarded_port", guest: 3306, host: 33060
+    config.vm.network "forwarded_port", guest: 10022, host: 10022
 
     # Register All Of The Configured Shared Folders
     #config.vm.synced_folder ".", "/vagrant", type: "smb"

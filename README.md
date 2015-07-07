@@ -24,6 +24,9 @@ tortoise git
 
     - map: /your/local/project
       to: /home/vagrant/project
+      type: rsync
+      excludes: ["backup","src/templates_c","src/admin/templates_c"]
+
       
 ## MySQL Backup & Restore      
 
@@ -33,9 +36,16 @@ tortoise git
 ### Restore
     docker exec -i m3rten_mysql mysql -uadmin -plocalpw < backup.sql
 
-## Startup vagrant with docker
+## Vagrant
+
+### Startup vagrant with docker
 
     vagrant up && vagrant ssh
+   
+### Vagrant & rsync
+    
+- exclude folders written to by webapps (cache dir, etc.)
+- make excluded folder writable
     
 ## Build an run docker images    
     
