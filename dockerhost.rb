@@ -25,15 +25,15 @@ class Dockerhost
     config.vm.network "forwarded_port", guest: 8085, host: 8085
     config.vm.network "forwarded_port", guest: 443, host: 443
     config.vm.network "forwarded_port", guest: 3306, host: 33060
-    config.vm.network "forwarded_port", guest: 3306, host: 33060
     config.vm.network "forwarded_port", guest: 10022, host: 10022
+    #config.vm.network "forwarded_port", guest: 9000, host: 9000
 
     # Register All Of The Configured Shared Folders
     #config.vm.synced_folder ".", "/vagrant", type: "smb"
     config.vm.synced_folder ".", "/vagrant"
 
     settings["folders"].each do |folder|
-      config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil
+      #config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil
       #config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= "smb"
       config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil , rsync__exclude: folder["excludes"]
     end

@@ -9,7 +9,8 @@ RUN apt-get update && \
     php5-mysql \
     php5-gd \
     php5-curl \
-    php-apc && \
+    php-apc \
+    php5-mcrypt && \
     rm -rf /var/lib/apt/lists/* && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 

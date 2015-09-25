@@ -1,5 +1,6 @@
 require 'json'
 require 'yaml'
+ENV["VAGRANT_DETECTED_OS"] = ENV["VAGRANT_DETECTED_OS"].to_s + " cygwin"
 
 configfile = File.expand_path("./config.yaml")
 require_relative 'dockerhost.rb'
@@ -20,6 +21,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "sudo apt-get install -y php5-cli php5-json php5-curl"
   # salt-minion
   config.vm.provision "shell", inline: "apt-get install -y python-software-properties software-properties-common"
+  #config.vm.provision "shell", inline: "curl -o install_salt.sh -L https://bootstrap.saltstack.com"
+  #config.vm.provision "shell", inline: "sudo sh install_salt.sh git v2015.8.0rc1"
   config.vm.provision "shell", inline: "add-apt-repository -y ppa:saltstack/salt && \
                                         apt-get update && \
                                         apt-get install -y \
@@ -31,9 +34,13 @@ Vagrant.configure("2") do |config|
   # Guest additions workaround
   #config.vbguest.iso_path = "http://download.virtualbox.org/virtualbox/4.3.28/VBoxGuestAdditions_4.3.28.iso"
 
-  # installs Docker an pulls some images
-  config.vm.provision "docker" do |docker|
-    docker.pull_images "ubuntu:14.04"
-  end
+  # installs Docker and pull ubuntu image
+  #config.vm.provision "docker", version "1.8.1" do |docker|
+  #  docker.pull_images "ubuntu:14.04"
+  #end
+
+    config.vm.provision "docker",
+      version: "1.8.1",
+      images: ["ubuntu:14.04"]
 
 end
