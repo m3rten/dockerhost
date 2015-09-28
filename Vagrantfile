@@ -12,24 +12,35 @@ Vagrant.configure("2") do |config|
 
   Dockerhost.configure(config,YAML::load(File.read(configfile)))
 
-  # Provisioning
+  # Timezone
   config.vm.provision "shell", inline: "sudo echo \"Europe/Berlin\" | sudo tee /etc/timezone"
   config.vm.provision "shell", inline: "sudo dpkg-reconfigure -f noninteractive tzdata"
-  config.vm.provision "shell", inline: "sudo apt-get update -y && sudo apt-get upgrade -y"
-  config.vm.provision "shell", inline: "sudo apt-get install -y build-essential curl git libssl-dev man wget htop"
-  config.vm.provision "shell", inline: "sudo apt-get install -y apache2-utils"
-  config.vm.provision "shell", inline: "sudo apt-get install -y php5-cli php5-json php5-curl"
-  # salt-minion
-  config.vm.provision "shell", inline: "apt-get install -y python-software-properties software-properties-common"
-  #config.vm.provision "shell", inline: "curl -o install_salt.sh -L https://bootstrap.saltstack.com"
-  #config.vm.provision "shell", inline: "sudo sh install_salt.sh git v2015.8.0rc1"
+
+  # Tools
+  config.vm.provision "shell", inline: "apt-get update -y && sudo apt-get upgrade -y && apt-get install -y \
+                                        build-essential \
+                                        curl \
+                                        git \
+                                        libssl-dev man \
+                                        wget \
+                                        htop \
+                                        php5-cli \
+                                        php5-json \
+                                        php5-curl \
+                                        apache2-utils \
+                                        python-software-properties \
+                                        software-properties-common"
+
+  # Salt
   config.vm.provision "shell", inline: "add-apt-repository -y ppa:saltstack/salt && \
-                                        apt-get update && \
-                                        apt-get install -y \
+                                        apt-get update && apt-get install -y \
                                         salt-master \
                                         salt-minion \
                                         salt-cloud"
   config.vm.provision "shell", inline: "service salt-minion restart"
+
+  # install docker manually
+  config.vm.provision "shell", inline: "curl -sSL https://get.docker.com/ | sh"
 
   # Guest additions workaround
   #config.vbguest.iso_path = "http://download.virtualbox.org/virtualbox/4.3.28/VBoxGuestAdditions_4.3.28.iso"
@@ -39,8 +50,9 @@ Vagrant.configure("2") do |config|
   #  docker.pull_images "ubuntu:14.04"
   #end
 
-    config.vm.provision "docker",
-      version: "1.8.1",
-      images: ["ubuntu:14.04"]
+    #config.vm.provision "docker",
+    #  version: "1.8.1",
+    #  images: ["ubuntu:14.04"]
+
 
 end

@@ -10,8 +10,8 @@ class Dockerhost
 
     # Configure A Private Network IP
     #config.vm.network :private_network, ip: "192.168.0.50"
-    config.vm.network :public_network, ip: "192.168.0.50"
     #config.vm.network :private_network, type: "dhcp"
+    config.vm.network :public_network, ip: "192.168.0.50"
 
     # Virtualbox VM Settings
     config.vm.provider :virtualbox do |vb|
@@ -29,12 +29,9 @@ class Dockerhost
     #config.vm.network "forwarded_port", guest: 9000, host: 9000
 
     # Register All Of The Configured Shared Folders
-    #config.vm.synced_folder ".", "/vagrant", type: "smb"
     config.vm.synced_folder ".", "/vagrant"
 
     settings["folders"].each do |folder|
-      #config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil
-      #config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= "smb"
       config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil , rsync__exclude: folder["excludes"]
     end
 
