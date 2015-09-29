@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
                                         build-essential \
                                         libssl-dev \
                                         python-software-properties \
-                                        software-properties-common
+                                        software-properties-common \
                                         curl \
                                         git \
                                         wget \
@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
                                         php5-cli \
                                         php5-json \
                                         php5-curl \
-                                        apache2-utils \"
+                                        apache2-utils"
 
   # Salt
   config.vm.provision "shell", inline: "sudo apt-get install -y \
