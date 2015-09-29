@@ -1,6 +1,6 @@
 require 'json'
 require 'yaml'
-ENV["VAGRANT_DETECTED_OS"] = ENV["VAGRANT_DETECTED_OS"].to_s + " cygwin"
+#ENV["VAGRANT_DETECTED_OS"] = ENV["VAGRANT_DETECTED_OS"].to_s + " cygwin"
 
 configfile = File.expand_path("./config.yaml")
 require_relative 'dockerhost.rb'
@@ -41,6 +41,9 @@ Vagrant.configure("2") do |config|
 
   # install docker manually
   config.vm.provision "shell", inline: "curl -sSL https://get.docker.com/ | sh"
+
+  # cleanup
+  config.vm.provision "shell", inline: "apt-get autoremove -y"
 
   # Guest additions workaround
   #config.vbguest.iso_path = "http://download.virtualbox.org/virtualbox/4.3.28/VBoxGuestAdditions_4.3.28.iso"
