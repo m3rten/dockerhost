@@ -1,10 +1,19 @@
 require 'json'
 require 'yaml'
+
+ENV["VAGRANT_DETECTED_OS"] = ENV["VAGRANT_DETECTED_OS"].to_s + " cygwin"
+
 configfile = File.expand_path("./config.yaml")
 require_relative 'dockerhost.rb'
 
 Vagrant.configure("2") do |config|
 
+    # fix networking timeouts
+	config.vm.provider "virtualbox" do |v|
+		v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+		v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+	end
+		
   # Map folders
   config.vm.synced_folder ".", "/vagrant"
 
@@ -14,9 +23,6 @@ Vagrant.configure("2") do |config|
   # Timezone
   config.vm.provision "shell", inline: "sudo echo \"Europe/Berlin\" | sudo tee /etc/timezone"
   config.vm.provision "shell", inline: "sudo dpkg-reconfigure -f noninteractive tzdata"
-
-  # Salt repository key
-  config.vm.provision "shell", inline: "sudo add-apt-repository -y ppa:saltstack/salt"
 
   # update and upgrade
   config.vm.provision "shell", inline: "sudo apt-get update -y && sudo apt-get upgrade -y"
@@ -37,6 +43,8 @@ Vagrant.configure("2") do |config|
                                         apache2-utils"
 
   # Salt
+  # Salt repository key
+  config.vm.provision "shell", inline: "sudo add-apt-repository -y ppa:saltstack/salt"
   config.vm.provision "shell", inline: "sudo apt-get install -y \
                                         salt-master \
                                         salt-minion \
