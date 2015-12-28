@@ -1,5 +1,4 @@
 .idea
-virtualbox
 /vagrant.pem
 /vagrant.ppk
 /nginx/vagrant/.bash_history

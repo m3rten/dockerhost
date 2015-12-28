@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
         v.name = "dockerhost"
         v.memory = 2048
         v.cpus = 2
-        v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+        v.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
 
