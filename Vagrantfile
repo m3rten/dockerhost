@@ -36,6 +36,8 @@ Vagrant.configure("2") do |config|
     config.vm.network "forwarded_port", guest: 10022, host: 10022
     config.vm.network "forwarded_port", guest: 27017, host: 27017
     config.vm.network "forwarded_port", guest: 9091, host: 9091
+    config.vm.network "forwarded_port", guest: 10080, host: 10080
+    config.vm.network "forwarded_port", guest: 10022, host: 10022
 
     # Map folders
     config.vm.synced_folder ".", "/vagrant"
