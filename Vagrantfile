@@ -4,7 +4,7 @@ require 'yaml'
 # cygwin workaround
 ENV["VAGRANT_DETECTED_OS"] = ENV["VAGRANT_DETECTED_OS"].to_s + " cygwin"
 
-configfile = File.expand_path("./config.yaml")
+configfile = File.expand_path("./config.yml")
 require_relative 'dockerhost.rb'
 
 Vagrant.configure("2") do |config|

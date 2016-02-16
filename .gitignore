@@ -9,4 +9,4 @@
 /nginx/vagrant/.ssh/authorized_keys
 /nginx/vagrant/.viminfo
 .vagrant
-config.yaml
+config.yml
