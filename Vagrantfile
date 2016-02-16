@@ -85,6 +85,11 @@ Vagrant.configure("2") do |config|
     # install mongodb client
     config.vm.provision "shell", inline: "sudo apt-get install -y -qq mongodb-clients"
 
+    # composer
+    config.vm.provision "shell", inline: "curl -sS https://getcomposer.org/installer | php && \
+                        mv composer.phar /usr/local/bin/composer && \
+                        composer config -g github-oauth.github.com  3e3ad2a3072d8cb766e80691ffc9ff538782da75"
+
     # cleanup
     config.vm.provision "shell", inline: "apt-get autoremove -y -qq"
 end

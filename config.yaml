@@ -1,6 +1,0 @@
-# Map your local project folders to a folder in /home/vagrant on the VM
-folders:
-  #- map: /your/local/project1
-  #  to: /home/vagrant/project1
-  #- map: /your/local/project2
-  #  to: /home/vagrant/project2
