@@ -40,6 +40,10 @@ Vagrant.configure("2") do |config|
 #    config.vm.network "forwarded_port", guest: 10080, host: 10080
 #    config.vm.network "forwarded_port", guest: 10022, host: 10022
 
+    # copy SSH key for git clone
+    config.vm.synced_folder "C:\\tools\\cygwin64\\home\\s.merten\\.ssh", "/home/vagrant/conf"
+    config.vm.provision "shell", :inline => "cp /home/vagrant/conf/id_rsa /home/vagrant/.ssh/id_rsa"
+
     # Map folders
     config.vm.synced_folder ".", "/vagrant"
 
