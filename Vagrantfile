@@ -19,8 +19,8 @@ Vagrant.configure("2") do |config|
     # fix networking timeouts (windows 10)
     config.vm.provider "virtualbox" do |v|
         v.name = "dockerhost"
-        v.memory = 4096
-        v.cpus = 3
+        v.memory = 2048
+        v.cpus = 2
         v.auto_nat_dns_proxy = false
         v.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
@@ -37,6 +37,8 @@ Vagrant.configure("2") do |config|
     config.vm.network "forwarded_port", guest: 10022, host: 10022
     config.vm.network "forwarded_port", guest: 27017, host: 27017
     config.vm.network "forwarded_port", guest: 9091, host: 9091
+    config.vm.network "forwarded_port", guest: 3000, host: 3000
+    config.vm.network "forwarded_port", guest: 3001, host: 3001
 #    config.vm.network "forwarded_port", guest: 10080, host: 10080
 #    config.vm.network "forwarded_port", guest: 10022, host: 10022
 
@@ -45,7 +47,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", :inline => "cp /home/vagrant/conf/id_rsa /home/vagrant/.ssh/id_rsa"
 
     # Map folders
-    config.vm.synced_folder ".", "/vagrant"
+    #config.vm.synced_folder ".", "/vagrant"
 
     # Read additional configfile
     Dockerhost.configure(config,YAML::load(File.read(configfile)))
