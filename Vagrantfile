@@ -19,8 +19,8 @@ Vagrant.configure("2") do |config|
     # fix networking timeouts (windows 10)
     config.vm.provider "virtualbox" do |v|
         v.name = "dockerhost"
-        v.memory = 2048
-        v.cpus = 2
+        v.memory = 4096
+        v.cpus = 3
         v.auto_nat_dns_proxy = false
         v.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
@@ -37,14 +37,12 @@ Vagrant.configure("2") do |config|
     config.vm.network "forwarded_port", guest: 10022, host: 10022
     config.vm.network "forwarded_port", guest: 27017, host: 27017
     config.vm.network "forwarded_port", guest: 9091, host: 9091
-    config.vm.network "forwarded_port", guest: 3000, host: 3000
-    config.vm.network "forwarded_port", guest: 3001, host: 3001
 #    config.vm.network "forwarded_port", guest: 10080, host: 10080
 #    config.vm.network "forwarded_port", guest: 10022, host: 10022
 
-    # copy ssh key for git cloning
-    config.vm.synced_folder "~/.ssh", "/home/vagrant/conf"
-    config.vm.provision "shell", inline: "cp /home/vagrant/conf/id_rsa /home/vagrant/.ssh/id_rsa"
+    # copy SSH key for git clone
+    config.vm.synced_folder "C:\\tools\\cygwin64\\home\\s.merten\\.ssh", "/home/vagrant/conf"
+    config.vm.provision "shell", :inline => "cp /home/vagrant/conf/id_rsa /home/vagrant/.ssh/id_rsa"
 
     # Map folders
     config.vm.synced_folder ".", "/vagrant"
@@ -97,7 +95,7 @@ Vagrant.configure("2") do |config|
                         composer config -g github-oauth.github.com  3e3ad2a3072d8cb766e80691ffc9ff538782da75"
 
     # nodejs, npm, gulp, bower
-    config.vm.provision "shell", inline: "curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && \
+    config.vm.provision "shell", inline: "curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash - && \
                         sudo apt-get install -y -qq  nodejs && \
                         npm install -g npm@latest && \
                         npm install -g gulp bower"
