@@ -19,8 +19,8 @@ Vagrant.configure("2") do |config|
     # fix networking timeouts (windows 10)
     config.vm.provider "virtualbox" do |v|
         v.name = "dockerhost"
-        v.memory = 4096
-        v.cpus = 3
+        v.memory = 2048
+        v.cpus = 2
         v.auto_nat_dns_proxy = false
         v.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
@@ -40,9 +40,9 @@ Vagrant.configure("2") do |config|
 #    config.vm.network "forwarded_port", guest: 10080, host: 10080
 #    config.vm.network "forwarded_port", guest: 10022, host: 10022
 
-    # copy SSH key for git clone
-    config.vm.synced_folder "C:\\tools\\cygwin64\\home\\s.merten\\.ssh", "/home/vagrant/conf"
-    config.vm.provision "shell", :inline => "cp /home/vagrant/conf/id_rsa /home/vagrant/.ssh/id_rsa"
+    # copy ssh key for git cloning
+    config.vm.synced_folder "~/.ssh", "/home/vagrant/conf"
+    config.vm.provision "shell", inline: "cp /home/vagrant/conf/id_rsa /home/vagrant/.ssh/id_rsa"
 
     # Map folders
     config.vm.synced_folder ".", "/vagrant"
