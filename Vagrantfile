@@ -97,7 +97,7 @@ Vagrant.configure("2") do |config|
                         composer config -g github-oauth.github.com  3e3ad2a3072d8cb766e80691ffc9ff538782da75"
 
     # nodejs, npm, gulp, bower
-    config.vm.provision "shell", inline: "curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash - && \
+    config.vm.provision "shell", inline: "curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && \
                         sudo apt-get install -y -qq  nodejs && \
                         npm install -g npm@latest && \
                         npm install -g gulp bower"
