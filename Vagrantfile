@@ -69,10 +69,22 @@ Vagrant.configure("2") do |config|
                                         git \
                                         wget \
                                         htop \
-                                        php5-cli \
-                                        php5-json \
-                                        php5-curl \
                                         apache2-utils"
+
+    # PHP 7
+    config.vm.provision "shell", inline: "LC_ALL=en_US.UTF-8 sudo add-apt-repository ppa:ondrej/php && sudo apt-get update"
+    config.vm.provision "shell", inline: "sudo apt-get update && apt-get -y -qq install php7.0 \
+                                        php7.0-cli \
+                                        php7.0-curl \
+                                        php7.0-json \
+                                        php7.0-gd \
+                                        php7.0-intl \
+                                        php7.0-mbstring \
+                                        php7.0-mcrypt \
+                                        php7.0-dev \
+                                        php7.0-xml \
+                                        php7.0-mysql \
+                                        php7.0-zip"
 
     # Salt
     # Salt repository key
@@ -87,6 +99,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: "sudo curl -sSL https://get.docker.com/ | sh"
     config.vm.provision "shell", inline: "sudo usermod -aG docker vagrant"
     config.vm.provision "shell", inline: "docker pull ubuntu:14.04"
+    config.vm.provision "shell", inline: "docker pull ubuntu:16.04"
 
     # install mongodb client
     config.vm.provision "shell", inline: "sudo apt-get install -y -qq mongodb-clients"
