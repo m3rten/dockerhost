@@ -68,8 +68,7 @@ Vagrant.configure("2") do |config|
                                         curl \
                                         git \
                                         wget \
-                                        htop \
-                                        apache2-utils"
+                                        htop"
 
     # PHP 7
     config.vm.provision "shell", inline: "LC_ALL=en_US.UTF-8 sudo add-apt-repository ppa:ondrej/php && sudo apt-get update"
