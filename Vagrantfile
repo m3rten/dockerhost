@@ -114,6 +114,31 @@ Vagrant.configure("2") do |config|
                         npm install -g npm@latest && \
                         npm install -g gulp bower"
 
+    # imapsync
+    config.vm.provision "shell", inline: "sudo apt-get install -y -qq \
+                                          libauthen-ntlm-perl \
+                                          libcrypt-ssleay-perl \
+                                          libdigest-hmac-perl \
+                                          libfile-copy-recursive-perl \
+                                          libio-compress-perl \
+                                          libio-socket-inet6-perl \
+                                          libio-socket-ssl-perl \
+                                          libio-tee-perl \
+                                          libmodule-scandeps-perl \
+                                          libnet-ssleay-perl      \
+                                          libpar-packer-perl \
+                                          libreadonly-perl \
+                                          libterm-readkey-perl \
+                                          libtest-pod-perl \
+                                          libtest-simple-perl     \
+                                          libunicode-string-perl \
+                                          liburi-perl \
+                                          cpanminus"
+
+    config.vm.provision "shell", inline: "sudo cpanm Data::Uniqid Mail::IMAPClient"
+    config.vm.provision "shell", inline: "sudo git clone https://github.com/imapsync/imapsync.git /home/imapsync/"
+    config.vm.provision "shell", inline: "sudo cp /home/imapsync/imapsync /usr/bin/"
+
     # cleanup
     config.vm.provision "shell", inline: "apt-get autoremove -y -qq"
 end
