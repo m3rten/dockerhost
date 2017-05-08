@@ -39,9 +39,6 @@ Vagrant.configure("2") do |config|
     config.vm.network "forwarded_port", guest: 10022, host: 10022
     config.vm.network "forwarded_port", guest: 27017, host: 27017
     config.vm.network "forwarded_port", guest: 9091, host: 9091
-#    config.vm.network "forwarded_port", guest: 3000, host: 3000
-#    config.vm.network "forwarded_port", guest: 3001, host: 3001
-#    config.vm.network "forwarded_port", guest: 10080, host: 10080
 #    config.vm.network "forwarded_port", guest: 10022, host: 10022
 
     # copy ssh key for git cloning
@@ -87,15 +84,6 @@ Vagrant.configure("2") do |config|
                                         php7.0-mysql \
                                         php7.0-zip"
 
-    # Salt
-    # Salt repository key
-    #  config.vm.provision "shell", inline: "sudo add-apt-repository -y ppa:saltstack/salt"
-    #  config.vm.provision "shell", inline: "sudo apt-get install -y \
-    #                                        salt-master \
-    #                                        salt-minion \
-    #                                        salt-cloud"
-    #  config.vm.provision "shell", inline: "service salt-minion restart"
-
     # mariadb / mysql client
     config.vm.provision "shell", inline: "sudo apt-get install -y -qq mariadb-client-core-10.0"
 
@@ -104,7 +92,6 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
     config.vm.provision "shell", inline: "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\""
     config.vm.provision "shell", inline: "sudo apt-get update && sudo apt-get install -y -qq docker-ce docker-compose"
-    #config.vm.provision "shell", inline: "sudo curl -sSL https://get.docker.com/ | sh"
     #config.vm.provision "shell", inline: "sudo usermod -aG docker vagrant"
     config.vm.provision "shell", inline: "sudo usermod -aG docker ubuntu"
     config.vm.provision "shell", inline: "docker pull ubuntu:14.04"
@@ -119,10 +106,15 @@ Vagrant.configure("2") do |config|
                         composer config -g github-oauth.github.com  3e3ad2a3072d8cb766e80691ffc9ff538782da75"
 
     # nodejs, npm, gulp, bower
-    config.vm.provision "shell", inline: "curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && \
-                        sudo apt-get install -y -qq  nodejs && \
-                        npm install -g npm@latest && \
-                        npm install -g gulp bower"
+    config.vm.provision "shell", inline: "curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && \
+                        sudo apt-get update && sudo apt-get install -y -qq  nodejs && \
+                        sudo npm install -g npm@latest && \
+                        sudo npm install -g gulp bower"
+
+    # yarn
+    config.vm.provision "shell", inline: "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -"
+    config.vm.provision "shell", inline: "echo 'deb https://dl.yarnpkg.com/debian/ stable main' | sudo tee /etc/apt/sources.list.d/yarn.list"
+    config.vm.provision "shell", inline: "sudo apt-get update && sudo apt-get install -y -qq yarn"
 
     # imapsync
     config.vm.provision "shell", inline: "sudo apt-get install -y -qq \
@@ -146,7 +138,7 @@ Vagrant.configure("2") do |config|
                                           cpanminus"
 
     config.vm.provision "shell", inline: "sudo cpanm Data::Uniqid Mail::IMAPClient"
-    config.vm.provision "shell", inline: "sudo git clone https://github.com/imapsync/imapsync.git /home/imapsync/"
+    config.vm.provision "shell", inline: "sudo rm -rf /home/imapsync/ && sudo git clone https://github.com/imapsync/imapsync.git /home/imapsync/"
     config.vm.provision "shell", inline: "sudo cp /home/imapsync/imapsync /usr/bin/"
 
     # uninstall apache2 because it blocks port 80
@@ -154,4 +146,13 @@ Vagrant.configure("2") do |config|
 
     # cleanup
     config.vm.provision "shell", inline: "apt-get autoremove -y -qq"
+
+    # Salt
+    # Salt repository key
+    #  config.vm.provision "shell", inline: "sudo add-apt-repository -y ppa:saltstack/salt"
+    #  config.vm.provision "shell", inline: "sudo apt-get install -y \
+    #                                        salt-master \
+    #                                        salt-minion \
+    #                                        salt-cloud"
+    #  config.vm.provision "shell", inline: "service salt-minion restart"
 end
