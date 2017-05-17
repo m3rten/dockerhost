@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.box = "ubuntu/xenial64"
 
-    config.vbguest.auto_update = false
+    #config.vbguest.auto_update = false
 
     # give our box a name and hostname
     config.vm.hostname = "dockerhost"
@@ -103,7 +103,7 @@ Vagrant.configure("2") do |config|
     # composer
     config.vm.provision "shell", inline: "curl -sS https://getcomposer.org/installer | php && \
                         mv composer.phar /usr/local/bin/composer && \
-                        composer config -g github-oauth.github.com  3e3ad2a3072d8cb766e80691ffc9ff538782da75"
+                        composer config -g github-oauth.github.com fdeec5aa02e0f0bd6a1c0f184cd620480ad59682"
 
     # nodejs, npm, gulp, bower
     config.vm.provision "shell", inline: "curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && \
