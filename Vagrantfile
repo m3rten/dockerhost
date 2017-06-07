@@ -51,6 +51,15 @@ Vagrant.configure("2") do |config|
     # Read additional configfile
     Dockerhost.configure(config,YAML::load(File.read(configfile)))
 
+    # Swap
+    config.vm.provision "shell", inline: "sudo mkdir -p /var/cache/swap"
+    config.vm.provision "shell", inline: "sudo fallocate -l 2G /var/cache/swap/swap0"
+    config.vm.provision "shell", inline: "sudo dd if=/dev/zero of=/var/cache/swap/swap0 bs=1M count=2048"
+    config.vm.provision "shell", inline: "sudo chmod 0600 /var/cache/swap/swap0"
+    config.vm.provision "shell", inline: "sudo mkswap /var/cache/swap/swap0"
+    config.vm.provision "shell", inline: "sudo swapon /var/cache/swap/swap0"
+    config.vm.provision "shell", inline: " echo '/var/cache/swap/swap0    none    swap    sw      0 0' | sudo tee -a /etc/fstab"
+
     # Timezone
     config.vm.provision "shell", inline: "sudo echo \"Europe/Berlin\" | sudo tee /etc/timezone"
     config.vm.provision "shell", inline: "sudo dpkg-reconfigure -f noninteractive tzdata"
