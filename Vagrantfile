@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
     #config.vm.provision "shell", inline: " cp /home/vagrant/conf/id_rsa /home/vagrant/.ssh/id_rsa"
 
     # Start in /home/vagrant
-    config.vm.synced_folder "sed -i '$ a cd /home/vagrant' ~/.bashrc"
+    config.vm.provision "sed -i '$ a cd /home/vagrant' ~/.bashrc"
 
     # Map folders
     #config.vm.synced_folder ".", "/vagrant"
