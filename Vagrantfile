@@ -45,14 +45,14 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder "~/.ssh", "/home/vagrant/conf"
     #config.vm.provision "shell", inline: " cp /home/vagrant/conf/id_rsa /home/vagrant/.ssh/id_rsa"
 
-    # Start in /home/vagrant
-    config.vm.provision "sed -i '$ a cd /home/vagrant' ~/.bashrc"
-
     # Map folders
     #config.vm.synced_folder ".", "/vagrant"
 
     # Read additional configfile
     Dockerhost.configure(config,YAML::load(File.read(configfile)))
+
+    # Start in /home/vagrant
+    config.vm.provision "shell", inline: "sudo sed -i '$ a cd /home/vagrant' /home/ubuntu/.bashrc"
 
     # Swap
     config.vm.provision "shell", inline: "sudo mkdir -p /var/cache/swap"
