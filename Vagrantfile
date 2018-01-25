@@ -79,6 +79,7 @@ Vagrant.configure("2") do |config|
                                         curl \
                                         git \
                                         wget \
+                                        apache2-utils \
                                         htop"
 
     # PHP 7
@@ -106,7 +107,6 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: "sudo apt-get update && sudo apt-get install -y -qq docker-ce docker-compose"
     #config.vm.provision "shell", inline: "sudo usermod -aG docker vagrant"
     config.vm.provision "shell", inline: "sudo usermod -aG docker ubuntu"
-    config.vm.provision "shell", inline: "docker pull ubuntu:14.04"
     config.vm.provision "shell", inline: "docker pull ubuntu:16.04"
 
     # install mongodb client
@@ -158,13 +158,4 @@ Vagrant.configure("2") do |config|
 
     # cleanup
     config.vm.provision "shell", inline: "apt-get autoremove -y -qq"
-
-    # Salt
-    # Salt repository key
-    #  config.vm.provision "shell", inline: "sudo add-apt-repository -y ppa:saltstack/salt"
-    #  config.vm.provision "shell", inline: "sudo apt-get install -y \
-    #                                        salt-master \
-    #                                        salt-minion \
-    #                                        salt-cloud"
-    #  config.vm.provision "shell", inline: "service salt-minion restart"
 end
