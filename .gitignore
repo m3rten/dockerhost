@@ -11,3 +11,5 @@
 .vagrant
 config.yml
 repositories
+*.log
+/.ssh/*
